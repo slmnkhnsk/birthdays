@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise 🎉</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+/* ===== Background ===== */
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+}
+
+/* ===== Surprise Popup ===== */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-box {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+  from {transform: scale(0);}
+  to {transform: scale(1);}
+}
+
+/* ===== Main Card ===== */
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1 { color:#ff4081; }
+
+/* ===== Mobile Bigger Images ===== */
+.gallery img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 6px;
+  transition: transform 0.3s;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+/* ===== Cake ===== */
+.cake {
+  font-size: 90px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+/* ===== Buttons ===== */
+button {
+  padding: 12px 20px;
+  border: none;
+  background: #ff4081;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background: #e91e63;
+}
+
+/* ===== Firecracker ===== */
+.spark {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+  to {
+    transform: translate(var(--x),var(--y)) scale(2);
+    opacity: 0;
+  }
+}
+
+/* ===== Floating Balloons ===== */
+.balloon {
+  position: fixed;
+  bottom: -100px;
+  width: 40px;
+  height: 60px;
+  border-radius: 50%;
+  animation: float 7s linear infinite;
+}
+
+@keyframes float {
+  to { transform: translateY(-120vh); }
+}
+
+.message {
+  color:#e91e63;
+  font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Surprise Popup -->
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h2>🎉 Surprise!!! 🎉</h2>
+    <p>Happy Birthday Bhabhi ❤️</p>
+    <button onclick="closePopup()">Open Surprise</button>
+  </div>
+</div>
+
+<div class="container">
+
+<h1>🎂 Happy Birthday Bhabhi 🎉</h1>
+
+<p>
+May your day be filled with love, happiness and beautiful memories ❤️
+</p>
+
+<!-- Cake -->
+<div class="cake" onclick="cutCake()">🎂</div>
+<p id="cakeText" class="message"></p>
+
+<!-- Gallery -->
+<div class="gallery">
+<img src="IMG_0530.JPG">
+<img src="IMG_0852.JPG">
+<img src="IMG_0854.JPG">
+</div>
+
+<br>
+<button onclick="celebrate()">Celebrate 🎊</button>
+
+</div>
+
+<script>
+
+/* Close popup */
+function closePopup(){
+  document.getElementById("popup").style.display="none";
+}
+
+/* Cake cut */
+function cutCake(){
+  document.getElementById("cakeText").innerText =
+  "🎉 Cake cut! Wishing endless happiness!";
+  firecracker();
+}
+
+/* Firecracker explosion */
+function firecracker(){
+
+  for(let i=0;i<50;i++){
+
+    let s=document.createElement("div");
+    s.className="spark";
+
+    let x=(Math.random()-0.5)*400+"px";
+    let y=(Math.random()-0.5)*400+"px";
+
+    s.style.setProperty("--x",x);
+    s.style.setProperty("--y",y);
+    s.style.left="50%";
+    s.style.top="50%";
+    s.style.background=`hsl(${Math.random()*360},100%,50%)`;
+
+    document.body.appendChild(s);
+
+    setTimeout(()=>s.remove(),1000);
+  }
+}
+
+/* Celebration */
+function celebrate(){
+
+  // balloons
+  for(let i=0;i<10;i++){
+    let b=document.createElement("div");
+    b.className="balloon";
+    b.style.left=Math.random()*100+"vw";
+    b.style.background=`hsl(${Math.random()*360},70%,60%)`;
+    b.style.animationDuration=(5+Math.random()*4)+"s";
+    document.body.appendChild(b);
+  }
+
+  firecracker();
+}
+
+</script>
+
+</body>
+</html>
